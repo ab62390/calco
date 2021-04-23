@@ -36,6 +36,10 @@ function removeLastDigit() {
 
 function showResult() {
   const str = resultScreen.innerHTML;
-  const res = eval(str);
+  const str_clean = str
+    .replace(/-$|\+$|×$|÷$/, '')
+    .replace('×', '*')
+    .replace('÷', '/');
+  const res = eval(str_clean);
   resultScreen.innerHTML = res;
 }
