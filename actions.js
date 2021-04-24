@@ -56,7 +56,9 @@ multButton.addEventListener('click', () => {
 });
 
 dotButton.addEventListener('click', () => {
-  if (isScreenEndWithDigit()) addToScreen('.');
+   if (!isScreenHasRemainingDot()) {
+     addToScreen('.');
+   }
 });
 
 equalButton.addEventListener('click', calculate);
@@ -85,10 +87,19 @@ function isScreenEndWithDigit() {
   }
 }
 
+function isScreenHasRemainingDot() {
+  const str = screen.innerHTML;
+  if (/\.\d+$|\.$/.test(str)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function calculate() {
   const str = screen.innerHTML;
   const str_clean = str
-    .replace(/-$|\+$|×$|÷$/, '')
+    .replace(/-$|\+$|×$|÷$|-\.$|\+\.$|×\.$|÷\.$/, '')
     .replace('×', '*')
     .replace('÷', '/');
   const res = eval(str_clean);
